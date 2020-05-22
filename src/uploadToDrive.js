@@ -26,9 +26,7 @@ app.post('/upload', fileUpload.single('image'), async(req, res) => {
   const product = new Product(req.body)
   console.log(req.body , "BODY")
   product.save()
-
-  console.log('Runnnnnnn')
-
+  res.status(201).send(req.body)
 })
 
 
