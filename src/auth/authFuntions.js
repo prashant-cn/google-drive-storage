@@ -39,7 +39,6 @@ function authorize (credentials, req, res, callback) {
             }
             oAuth2Client.setCredentials(JSON.parse(token));
             const fileID = await callback(oAuth2Client, req, res);
-            console.log(fileID, 'after await')
             resolve(fileID)
         });
     })
@@ -79,7 +78,6 @@ function getAccessToken(oAuth2Client, req, res, callback) {
                 console.log('Token stored to', TOKEN_PATH);
               });
             const fileID = await callback(oAuth2Client, req, res);
-            console.log(fileID, 'after await')
             resolve(fileID)
             })
           })

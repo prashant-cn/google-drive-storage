@@ -2,7 +2,6 @@ const { google } = require('googleapis');
 const stream = require('stream');
 
 const uploadFile = (auth, req, res) => {
-    console.log(req.file)
     return new Promise((resolve, reject) => {
         let fileObject = req.file;
         let bufferStream = new stream.PassThrough();
@@ -15,18 +14,15 @@ const uploadFile = (auth, req, res) => {
                 },
                 resource: {
                     name: req.file.originalname,
-                    // if you want to store the file in the root, remove this parents
+                    // if you want to store the file in the root, remove the parents
                     parents: ['1DHatezQFlAFCZlhOmsYpLkymA3JC9MEq'] // change this ID as per the Gmail Account in use.
                 },
                 fields: 'id',
             }).then((resp) => {
-                //console.log(resp,'resp');
                 //res.send('File uploaded');
-                console.log(req.file.originalname)
-                console.log(`https://www.drive.google.com/uc?id=${resp.data.id}&export=view`);
+                //console.log(`https://www.drive.google.com/uc?id=${resp.data.id}&export=view`);
                 resolve(resp.data.id)
             }).catch((error) => {
-                console.log(error);
                 //res.send('Upload Error');
                 reject(error)
             })
