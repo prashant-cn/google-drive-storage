@@ -46,11 +46,11 @@ app.get('/product/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
     if(!product) {
-      throw new Error()
+      throw new Error('No Product Found!')
     }
     res.send(product)
   } catch(error) {
-    res.status(400).send(error)
+    res.status(400).send({error:error.message})
   }
 })
 
