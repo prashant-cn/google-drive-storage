@@ -25,7 +25,7 @@ const TOKEN_PATH = './src/auth/token.json';
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize (credentials, req, res, callback) {
+function authorize (credentials, req, callback) {
     return new Promise((resolve, reject) => {
         const { client_secret, client_id, redirect_uris } = credentials.installed;
         const oAuth2Client = new google.auth.OAuth2(
@@ -34,11 +34,11 @@ function authorize (credentials, req, res, callback) {
         // Check if we have previously stored a token.
         fs.readFile(TOKEN_PATH, async (err, token) => {
             if (err){
-                const fileID = await getAccessToken(oAuth2Client, req, res, callback)
+                const fileID = await getAccessToken(oAuth2Client, req, callback)
                 return resolve(fileID)
             }
             oAuth2Client.setCredentials(JSON.parse(token));
-            const fileID = await callback(oAuth2Client, req, res);
+            const fileID = await callback(oAuth2Client, req);
             resolve(fileID)
         });
     })
@@ -50,7 +50,7 @@ function authorize (credentials, req, res, callback) {
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
-function getAccessToken(oAuth2Client, req, res, callback) {
+function getAccessToken(oAuth2Client, req, callback) {
     return new Promise((resolve, reject) => {
         const authUrl = oAuth2Client.generateAuthUrl({
             access_type: 'offline',
@@ -77,14 +77,14 @@ function getAccessToken(oAuth2Client, req, res, callback) {
                 }
                 console.log('Token stored to', TOKEN_PATH);
               });
-            const fileID = await callback(oAuth2Client, req, res);
+            const fileID = await callback(oAuth2Client, req);
             resolve(fileID)
             })
           })
     })
 }
 
-const fileUploadToDrive = (req, res) => {
+const fileUploadToDrive = (req) => {
     return new Promise((resolve, reject) => {
         // Load client secrets from a local file.
         fs.readFile('./src/auth/credentials.json', async(err, content) => {
@@ -92,7 +92,7 @@ const fileUploadToDrive = (req, res) => {
                 return reject(`Error loading client secret file: ${err}`)
             }
             // Authorize a client with credentials, then call the Google Drive API.
-            const fileID = await authorize(JSON.parse(content), req, res, uploadFile);
+            const fileID = await authorize(JSON.parse(content), req, uploadFile);
             resolve(fileID)
         });
     })

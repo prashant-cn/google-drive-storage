@@ -20,12 +20,14 @@ const fileUpload = multer({
 //insert product
 app.post('/upload', fileUpload.single('image'), async(req, res) => {
     try {
-      const fileId = await fileUploadToDrive(req, res)
-      req.body.image = fileId
+      //const fileId = await fileUploadToDrive(req, res)
+      //req.body.image = 'fileId'
 
+      //https://stackoverflow.com/questions/10485302/node-mongoose-getting-to-request-context-in-mongoose-middleware
+      req.body.image = req.file.originalname // dummy name to initiate the .save, because image is required. This will be updated in presave in mongoose middleware
       const product = new Product(req.body)
-      product.save()
-      res.status(201).send(req.body)
+      const result = await product.save(req)
+      res.status(201).send(result)
     } catch(error) {
       res.status(400).send(error)
     }

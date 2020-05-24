@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const { fileUploadToDrive } = require('../auth/authFuntions')
 
-const Product = mongoose.model('Product', {
+const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -21,6 +22,17 @@ const Product = mongoose.model('Product', {
         required: true
     }
 })
+
+productSchema.pre('save', async function(next, req) {
+    const product = this
+    
+    const fileId = await fileUploadToDrive(req)
+    product.image = fileId
+
+    next()
+})
+
+const Product = mongoose.model('Product', productSchema)
 
 module.exports = {
     Product

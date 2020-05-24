@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 const stream = require('stream');
 
-const uploadFile = (auth, req, res) => {
+const uploadFile = (auth, req) => {
     return new Promise((resolve, reject) => {
         let fileObject = req.file;
         let bufferStream = new stream.PassThrough();
