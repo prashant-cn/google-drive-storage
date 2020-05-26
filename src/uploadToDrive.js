@@ -2,7 +2,6 @@ require('./db/mongoose') // to connect to database
 const multer = require('multer');
 const express = require('express')
 const { Product } = require('./db/productsDBModel')
-const { fileUploadToDrive } = require('./auth/authFuntions')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -20,9 +19,6 @@ const fileUpload = multer({
 //insert product
 app.post('/upload', fileUpload.single('image'), async(req, res) => {
     try {
-      //const fileId = await fileUploadToDrive(req, res)
-      //req.body.image = 'fileId'
-
       //https://stackoverflow.com/questions/10485302/node-mongoose-getting-to-request-context-in-mongoose-middleware
       req.body.image = req.file.originalname // dummy name to initiate the .save, because image is required. This will be updated in presave in mongoose middleware
       const product = new Product(req.body)
@@ -44,6 +40,7 @@ app.get('/products', async (req, res) => {
   } 
 })
 
+//get single product by id
 app.get('/product/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)

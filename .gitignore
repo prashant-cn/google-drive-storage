@@ -1,3 +1,5 @@
 node_modules
 config
 playground
+src/auth/credentials.json
+src/auth/token.json
