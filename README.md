@@ -1,7 +1,7 @@
 # google-drive-storage
 Simple Product API's with Google Drive API to store/fetch all the assets in/from Google Drive.
 
-This is a simple API for people to practice E-Commerce like functionality, especially UX and Mobile developers to insert, fetch and fetch single product by ID. For Backend Developers to see the the working of an API along with the working of Google Drive API for storage using NodeJS.
+This is a simple API for people to practice E-Commerce like functionality, especially for UX and Mobile developers to insert, fetch and fetch single product by ID. For Backend Developers to see the working of an API along with the working of Google Drive API for storage using NodeJS.
 
 Prerequisites to run the app in local enviroment
 1. Installed NodeJS
