@@ -3,9 +3,9 @@ Simple Product API's with Google Drive API to store/fetch all the assets in/from
 
 This is a simple API for people to practice E-Commerce like functionality, especially for UX and Mobile developers to insert, fetch and fetch single product by ID. For Backend Developers to see the working of an API along with the working of Google Drive API for storage using NodeJS.
 
-Prerequisites to run the app in local enviroment
+Prerequisites to run the app in local environment
 1. Installed NodeJS
-2. Installed MongoDB along with a MogoDB GUI, I'm using Robo 3T.
+2. Installed MongoDB along with a MongoDB GUI, I'm using Robo 3T.
 
 <b>Step 1:</b>
 Follow steps from Google Drive API for NodeJS, URL: https://developers.google.com/drive/api/v3/quickstart/nodejs
@@ -20,7 +20,7 @@ Put the "credentials.json" file inside "src/auth" folder.
 Example: MONGO_DB_PATH=mongodb://127.0.0.1:27017/products-api
 
 <b>Step 5:</b>
-Run the app in local enviroment and follow the steps shown in terminal window to genrate "token.json".
+Run the app in local environment and follow the steps shown in terminal window to genrate "token.json".
 
 <b>Step 6:</b>
 Change the "parents" ID inside "src/utils/driveFunctions.js" with your own folder ID from google drive or simply comment out the "parents" property to store the files in you root of google drive.
